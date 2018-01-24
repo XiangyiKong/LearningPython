@@ -80,3 +80,70 @@ python bisect_example2.py
 95 17 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85, 95]
 91 17 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85, 91, 95]
 ```
+
+### Searching Sorted Lists
+def index(a, x):
+    'Locate the leftmost value exactly equal to x'
+    i = bisect_left(a, x)
+    if i != len(a) and a[i] == x:
+        return i
+    raise ValueError
+
+def find_lt(a, x):
+    'Find rightmost value less than x'
+    i = bisect_left(a, x)
+    if i:
+        return a[i-1]
+    raise ValueError
+
+def find_le(a, x):
+    'Find rightmost value less than or equal to x'
+    i = bisect_right(a, x)
+    if i:
+        return a[i-1]
+    raise ValueError
+
+def find_gt(a, x):
+    'Find leftmost value greater than x'
+    i = bisect_right(a, x)
+    if i != len(a):
+        return a[i]
+    raise ValueError
+
+def find_ge(a, x):
+    'Find leftmost item greater than or equal to x'
+    i = bisect_left(a, x)
+    if i != len(a):
+        return a[i]
+    raise ValueError
+### Other Examples
+```python
+
+The bisect() function can be useful for numeric table lookups. This example uses bisect() to look up a letter grade for an exam score (say) based on a set of ordered numeric breakpoints: 90 and up is an ‘A’, 80 to 89 is a ‘B’, and so on:
+
+def grade(score, breakpoints=[60, 70, 80, 90], grades='FDCBA'):
+        i = bisect(breakpoints, score)
+        return grades[i]
+
+[grade(score) for score in [33, 99, 77, 70, 89, 90, 100]]
+['F', 'A', 'C', 'C', 'B', 'A', 'A']
+
+Unlike the sorted() function, it does not make sense for the bisect() functions to have key or reversed arguments because that would lead to an inefficient design (successive calls to bisect functions would not “remember” all of the previous key lookups).
+
+Instead, it is better to search a list of precomputed keys to find the index of the record in question:
+
+>>> data = [('red', 5), ('blue', 1), ('yellow', 8), ('black', 0)]
+>>> data.sort(key=lambda r: r[1])
+>>> keys = [r[1] for r in data]         # precomputed list of keys
+>>> data[bisect_left(keys, 0)]
+('black', 0)
+>>> data[bisect_left(keys, 1)]
+('blue', 1)
+>>> data[bisect_left(keys, 5)]
+('red', 5)
+>>> data[bisect_left(keys, 8)]
+('yellow', 8)
+```
+
+
+```
