@@ -20,7 +20,7 @@ for i in range(1, 20):
     print '%2d %2d' % (r, position), l
 
 
-$ python bisect_example.py
+python bisect_example.py
 
 14  0 [14]
 85  1 [14, 85]
@@ -58,7 +58,7 @@ for i in range(1, 20):
     position = bisect.bisect_left(l, r)
     bisect.insort_left(l, r)
     print '%2d %2d' % (r, position), l
-$ python bisect_example2.py
+python bisect_example2.py
 
 14  0 [14]
 85  1 [14, 85]
